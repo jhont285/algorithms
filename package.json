@@ -1,0 +1,17 @@
+{
+  "name": "disjoint-set-js",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:jhont285/disjoint-set-js.git",
+  "author": "jhont285 <jhetorresto@unal.edu.co>",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest -o"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^13.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "jest": "^23.4.1"
+  }
+}
