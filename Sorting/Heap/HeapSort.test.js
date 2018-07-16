@@ -1,7 +1,5 @@
 const heapSort = require('./heapSort');
 
-/* eslint-disable no-undef */
-
 const SIZE_ARRAYS = parseInt(1e4, 10);
 
 it(`should sort the worst case with ${SIZE_ARRAYS} elements`, () => {

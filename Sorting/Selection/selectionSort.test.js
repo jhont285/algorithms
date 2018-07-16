@@ -1,7 +1,5 @@
 const selectionSort = require('./selectionSort');
 
-/* eslint-disable no-undef */
-
 const SIZE_ARRAYS = parseInt(1e3, 10);
 
 it(`should sort the worst case with ${SIZE_ARRAYS} elements`, () => {
