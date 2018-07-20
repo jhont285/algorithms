@@ -9,6 +9,8 @@ class DisjointSet {
   constructor(nodes = []) {
     /** @private */ this.parent = {};
     /** @private */ this.height = {};
+    /** @private */ this.size = {};
+    /** @private */ this.sets = 0;
 
     nodes.forEach((item) => { this.add(item); });
   }
@@ -20,6 +22,8 @@ class DisjointSet {
   add(node) {
     this.parent[node] = node;
     this.height[node] = 0;
+    this.size[node] = 1;
+    this.sets += 1;
   }
 
   /**
@@ -81,13 +85,31 @@ class DisjointSet {
     if (rootP !== rootQ) {
       if (this.height[rootP] < this.height[rootQ]) {
         this.parent[rootP] = rootQ;
+        this.size[rootQ] += this.size[rootP];
       } else {
         this.parent[rootQ] = rootP;
+        this.size[rootQ] += this.size[rootP];
         if (this.height[rootP] === this.height[rootQ]) {
           this.height[rootP] += 1;
         }
       }
+      this.sets -= 1;
     }
+  }
+
+  /**
+   * @param {number} node
+   * @return {number}
+   */
+  sizeOfSet(node) {
+    return this.size[this.findSet(node)];
+  }
+
+  /**
+   * @return {number}
+   */
+  numDisjointSets() {
+    return this.sets;
   }
 
   /**
