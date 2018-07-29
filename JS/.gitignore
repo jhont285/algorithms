@@ -62,3 +62,6 @@ typings/
 
 # webstorm's files
 .idea
+
+# temporal data with array list improved
+Data\ Structures/ArrayList/*.json

@@ -1,5 +1,5 @@
 /**
- * This data structure is awesome
+ * A fast implementation of Disjoint-set data structure
  */
 class DisjointSet {
   constructor() {
@@ -10,57 +10,58 @@ class DisjointSet {
   }
 
   /**
-   * Add new new at the disjoint set
-   * @param {!number} node - new node
+   * Add new node at the disjoint set
+   * @param {*} node
    */
   add(node) {
-    this.parent[node] = node;
-    this.height[node] = 0;
-    this.size[node] = 1;
-    this.sets += 1;
+    if (this.parent[node] === undefined) {
+      this.parent[node] = node;
+      this.height[node] = 0;
+      this.size[node] = 1;
+      this.sets += 1;
+    }
   }
 
   /**
-   * Find the index of tree's root of the current node
-   * @param {!number} currentNode - Node
-   * @returns {number} the root of p
+   * Returns the index of tree's root of the current node
+   * @param {*}
+   * @returns {*}
    */
-  findSet(currentNode) {
-    let root = currentNode;
+  findSet(node) {
+    let root = node;
 
     while (root !== this.parent[root]) {
       root = this.parent[root];
     }
 
-    let tmpNode;
-    while (root !== this.parent[currentNode]) {
-      tmpNode = this.parent[currentNode];
-      this.parent[currentNode] = root;
-      this.height[tmpNode] = 0;
-      currentNode = tmpNode;
+    let tmp;
+    while (root !== this.parent[node]) {
+      tmp = this.parent[node];
+      this.parent[node] = root;
+      this.height[tmp] = 0;
+      node = tmp;
     }
 
     return root;
   }
 
   /**
-   * Find the index of tree's root of the current node
-   * @param {!number} currentNode - Node
-   * @returns {number} the root of p
+   * Find the index of tree's root of the node
+   * @param {*} node - Node
+   * @returns {*} the root of p
    */
-  findSetRecursive(currentNode) {
-    if (currentNode === this.parent[currentNode]) {
-      return currentNode;
+  findSetRecursive(node) {
+    if (node === this.parent[node]) {
+      return node;
     }
 
-    this.parent[currentNode] = this.findSetRecursive(this.parent[currentNode]);
-    return this.parent[currentNode];
+    this.parent[node] = this.findSetRecursive(this.parent[node]);
+    return this.parent[node];
   }
 
   /**
-   * Verify if the nodes are in same set
-   * @param {!number} nodeP - Node
-   * @param {!number} nodeQ - Node
+   * @param {*} nodeP
+   * @param {*} nodeQ
    * @returns {boolean} true if p and q are in the same set, false in otherwise
    */
   isSameSet(nodeP, nodeQ) {
@@ -69,8 +70,8 @@ class DisjointSet {
 
   /**
    * Join the trees that contains the nodes
-   * @param {!number} nodeP - Node
-   * @param {!number} nodeQ - Node
+   * @param {*} nodeP
+   * @param {*} nodeQ
    */
   unionSet(nodeP, nodeQ) {
     const rootP = this.findSet(nodeP);
@@ -82,39 +83,45 @@ class DisjointSet {
         this.size[rootQ] += this.size[rootP];
       } else {
         this.parent[rootQ] = rootP;
-        this.size[rootQ] += this.size[rootP];
+        this.size[rootP] += this.size[rootQ];
         if (this.height[rootP] === this.height[rootQ]) {
           this.height[rootP] += 1;
         }
       }
       this.sets -= 1;
+      return true;
     }
+
+    return false;
   }
 
   /**
-   * @param {!number} node
+   * @param {*} node
    * @return {number}
    */
   sizeOfSet(node) {
-    return this.size[this.findSet(node)];
+    const rootNode = this.findSet(node);
+    return this.size[rootNode];
   }
 
   /**
    * @return {number}
    */
-  numDisjointSets() {
+  numSets() {
     return this.sets;
   }
+
 
   /**
    * @override
    * @returns {string}
    */
   toString() {
-    let answer = '{ ';
-    this.parent.forEach((item, index) => { answer += `${index} => ${item}, `; });
-    answer += '}';
-    return answer;
+    const output = [];
+    for (const node in this.parent) {
+      output.push(`[${node} -> ${this.parent[node]}]`);
+    }
+    return output.join(', ');
   }
 }
 

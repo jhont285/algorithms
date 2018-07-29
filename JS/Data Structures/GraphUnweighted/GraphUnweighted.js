@@ -26,7 +26,7 @@ class GraphUnweighted {
 
   /**
    * @param {number} initialNode
-   * @return {{nodesVisited: number, color: string[], parent: number[]}}
+   * @return {{color: string[], nodesVisited: number, parent: number[]}}
    */
   dfsRecursive(initialNode) {
     const parent = {};
@@ -52,7 +52,7 @@ class GraphUnweighted {
     };
 
     dfs(initialNode);
-    return { nodesVisited, parent, color };
+    return { color, nodesVisited, parent };
   }
 
   /**
@@ -70,21 +70,21 @@ class GraphUnweighted {
     color[initialNode] = 'gray';
 
     let nodesVisited = 1;
-    let currentNode;
+    let node;
     const nodeList = [initialNode];
 
     while (nodeList.length) { // while nodeList is not empty
-      currentNode = nodeList.pop();
-      for (const neighbor of this.graph[currentNode]) {
+      node = nodeList.pop();
+      for (const neighbor of this.graph[node]) {
         if (color[neighbor] === 'white') {
           color[neighbor] = 'gray';
-          parent[neighbor] = currentNode;
+          parent[neighbor] = node;
           nodesVisited += 1;
           nodeList.push(neighbor);
         }
       }
 
-      color[currentNode] = 'black';
+      color[node] = 'black';
     }
 
     return { nodesVisited, parent, color };
@@ -92,7 +92,7 @@ class GraphUnweighted {
 
   /**
    * @param {!(number|string)} initialNode
-   * @return {{nodesVisited: number, color: string[], parent: number[]}}
+   * @return {{ color: string[], depth: number[], parent: (number|string)[], visitedNodes: number }}
    */
   bfsIterative(initialNode) {
     const parent = {};
@@ -108,29 +108,29 @@ class GraphUnweighted {
     color[initialNode] = 'gray';
 
     let visitedNodes = 1;
-    let currentNode;
+    let node;
     const nodeList = [initialNode];
 
     while (nodeList.length) { // while nodeList is not empty
-      currentNode = nodeList.shift(); // peek
-      for (const neighbor of this.graph[currentNode]) {
+      node = nodeList.shift(); // peek
+      for (const neighbor of this.graph[node]) {
         if (color[neighbor] === 'white') {
           color[neighbor] = 'gray';
-          parent[neighbor] = currentNode;
+          parent[neighbor] = node;
           visitedNodes += 1;
-          depth[neighbor] = Math.min(depth[currentNode] + 1, depth[neighbor]);
+          depth[neighbor] = Math.min(depth[node] + 1, depth[neighbor]);
           nodeList.push(neighbor);
         }
       }
 
-      color[currentNode] = 'black';
+      color[node] = 'black';
     }
 
     return {
-      visitedNodes,
-      parent,
-      depth,
       color,
+      depth,
+      parent,
+      visitedNodes,
     };
   }
 
@@ -142,11 +142,11 @@ class GraphUnweighted {
   pathDfs(originNode, finalNode) {
     const { parent } = this.dfsRecursive(originNode);
     const pathList = [];
-    let currentNode = finalNode;
+    let node = finalNode;
 
-    while (currentNode !== null) {
-      pathList.push(currentNode);
-      currentNode = parent[currentNode];
+    while (node !== null) {
+      pathList.push(node);
+      node = parent[node];
     }
 
     pathList.reverse();
@@ -161,11 +161,11 @@ class GraphUnweighted {
   pathBfs(originNode, finalNode) {
     const { parent } = this.bfsIterative(originNode);
     const pathList = [];
-    let currentNode = finalNode;
+    let node = finalNode;
 
-    while (currentNode !== null) {
-      pathList.push(currentNode);
-      currentNode = parent[currentNode];
+    while (node !== null) {
+      pathList.push(node);
+      node = parent[node];
     }
 
     pathList.reverse();

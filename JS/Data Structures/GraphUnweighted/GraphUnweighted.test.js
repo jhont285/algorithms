@@ -11,5 +11,5 @@ test('the methods of the graph unweighted', () => {
   expect(netWork.connected(2, 3)).toBe(true);
   expect(netWork.connected(7, 8)).toBe(true);
   expect(netWork.connected(8, 1)).toBe(false);
-  
+
 });
