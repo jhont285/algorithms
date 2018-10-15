@@ -1,9 +1,4 @@
-class ChainNode {
-  constructor(element = null, next = null) {
-    this.element = element;
-    this.next = next;
-  }
-}
+const { ChainNode } = require('../Utilities');
 
 class LinkedStack {
   constructor() {

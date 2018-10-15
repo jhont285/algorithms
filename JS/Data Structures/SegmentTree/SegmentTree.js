@@ -1,4 +1,7 @@
 class SegmentTree {
+  /**
+   * @param {number[]} array
+   */
   constructor(array) {
     this.tree = new Array(2 * array.length);
     this.array = [null].concat(array);
@@ -21,6 +24,10 @@ class SegmentTree {
     build(1, 1, this.array.length - 1, array);
   }
 
+  /**
+   * @param {number} index
+   * @param {number} value
+   */
   update(index, value) {
     const updateAux = (node, start, end) => {
       if (start === end) {
@@ -43,6 +50,10 @@ class SegmentTree {
     updateAux(1, 1, this.array.length - 1);
   }
 
+  /**
+   * @param {number} left
+   * @param {number} right
+   */
   query(left, right) {
     const queryAux = (node, start, end) => {
       if (right < start || end < left) {

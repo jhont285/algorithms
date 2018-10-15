@@ -1,7 +1,7 @@
 
 class ArrayList {
   /**
-   * @param {*} initialCapacity
+   * @param {number} initialCapacity
    */
   constructor(initialCapacity) {
     if (initialCapacity <= 0) {

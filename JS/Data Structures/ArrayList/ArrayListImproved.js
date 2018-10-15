@@ -3,6 +3,16 @@ const fs = require('fs');
 const ArrayList = require('./ArrayList');
 
 class ArrayListImproved extends ArrayList {
+  /**
+ * @name function
+ * @param  {*} a
+ * @param  {*} a
+ * @returns {number}
+ */
+
+  /**
+   * @param {function=} comparator
+   */
   sort(comparator = (a, b) => a - b) {
     this.element.sort(comparator);
   }

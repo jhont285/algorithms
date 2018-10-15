@@ -1,3 +1,4 @@
+
 class ArrayStack {
   constructor() {
     this.stack = new Array(10);
@@ -18,13 +19,13 @@ class ArrayStack {
     this.stack[this.size] = element;
   }
 
-  peek() {
+  peek() { // eslint-disable-line consistent-return
     if (!this.isEmpty()) {
       return this.stack[this.size];
     }
   }
 
-  pop() {
+  pop() { // eslint-disable-line consistent-return
     if (!this.isEmpty()) {
       const topElement = this.stack[this.size];
       this.size -= 1;
